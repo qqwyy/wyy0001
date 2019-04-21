@@ -1,2 +1,4 @@
 http\://www.ares-remoting.com/schema/ares-service.xsd=META-INF/remote-service.xsd
 http\://www.ares-remoting.com/schema/ares-reference.xsd=META-INF/remote-reference.xsd
+##http\://blog.csdn.net/cutesource/schema/people.xsd=META-INF/people.xsd
+http\://blog.csdn.net/cutesource/schema/people/people.xsd=META-INF/people.xsd

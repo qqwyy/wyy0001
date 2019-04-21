@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
+            xmlns:cutesource="http://blog.csdn.net/cutesource/schema/people"  
+            xsi:schemaLocation="  
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://blog.csdn.net/cutesource/schema/people http://blog.csdn.net/cutesource/schema/people/people.xsd">
+        <!--schemaLocation前半部分为namespace 后者为xsd路径       xsd路径在spring.schemas定义-->
+
+            <cutesource:people id="people1" name="wyy" age="30"/>
+        </beans>
