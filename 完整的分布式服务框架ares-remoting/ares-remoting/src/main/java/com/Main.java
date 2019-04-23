@@ -11,8 +11,6 @@ public class Main {
     public static void main(String[] args) throws Exception {
         //引入远程服务
         final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("people.xml");
-        //获取远程服务
-//        final HelloService helloService = (HelloService) context.getBean("remoteHelloService");
 
         People p = (People)context.getBean("people1");
 //        System.out.println(p.getId());
