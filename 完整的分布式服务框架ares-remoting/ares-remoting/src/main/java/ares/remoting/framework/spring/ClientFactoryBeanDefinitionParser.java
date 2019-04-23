@@ -1,6 +1,6 @@
 package ares.remoting.framework.spring;
 
-import ares.remoting.framework.revoker.RevokerFactoryBean;
+import ares.remoting.framework.revoker.ClientFactoryBean;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,23 +12,36 @@ import org.w3c.dom.Element;
  * @author liyebing created on 17/2/12.
  * @version $Id$
  */
-public class RevokerFactoryBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
+public class ClientFactoryBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
 
-    private static final Logger logger = LoggerFactory.getLogger(RevokerFactoryBeanDefinitionParser.class);
+    private static final Logger logger = LoggerFactory.getLogger(ClientFactoryBeanDefinitionParser.class);
 
     @Override
     protected Class getBeanClass(Element element) {
-        return RevokerFactoryBean.class;
+        return ClientFactoryBean.class;
     }
 
     @Override
     protected void doParse(Element element, BeanDefinitionBuilder bean) {
         try {
-            String timeOut = element.getAttribute("timeout");
+
+            /**
+             * <AresClient:reference id="remoteHelloService"
+             *                       interface="ares.remoting.test.HelloService"
+             *                       clusterStrategy="WeightRandom"
+             *                       remoteAppKey="ares"
+             *                       groupName="default"
+             *                       timeout="3000"/>
+             */
             String targetInterface = element.getAttribute("interface");
             String clusterStrategy = element.getAttribute("clusterStrategy");
             String remoteAppKey = element.getAttribute("remoteAppKey");
             String groupName = element.getAttribute("groupName");
+            String timeOut = element.getAttribute("timeout");
+
+            /**
+             * 将属性设置到BeanDefinitionBuilder  其实最终是到  ClientFactoryBean
+             */
 
             bean.addPropertyValue("timeout", Integer.parseInt(timeOut));
             bean.addPropertyValue("targetInterface", Class.forName(targetInterface));

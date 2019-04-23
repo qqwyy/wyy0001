@@ -16,18 +16,14 @@ public interface IRegisterCenter4Provider {
 
     /**
      * 服务端将服务提供者信息注册到zk对应的节点下
-     *
-     * @param serviceMetaData
      */
     public void registerProvider(final List<ProviderService> serviceMetaData);
 
-
     /**
      * 服务端获取服务提供者信息
-     * <p/>
-     * 注:返回对象,Key:服务提供者接口  value:服务提供者服务方法列表
-     *
-     * @return
+     * 注:返回对象,
+     * Key:服务提供者接口（带完整包名路径的接口 如：ares.remoting.test.HelloService）
+     * value:服务提供者服务方法列表
      */
     public Map<String, List<ProviderService>> getProviderServiceMap();
 

@@ -254,6 +254,19 @@ public class RegisterCenter implements IRegisterCenter4Invoker, IRegisterCenter4
             }
         }
 
+
+        /**
+         * zk数据：
+         * config_register
+         * ares
+         *   default
+         *      ares.remoting.test.HelloService
+         *         provider
+         *             192.168.xx.xx|8081|2|100|default
+         *         consumer
+         *             192.168.xx.xx
+         */
+
         //从ZK获取服务提供者列表
         String providePath = ROOT_PATH + "/" + remoteAppKey + "/" + groupName;
         List<String> providerServices = zkClient.getChildren(providePath);

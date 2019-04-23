@@ -17,7 +17,7 @@ import java.util.Map;
  * @author liyebing created on 16/10/3.
  * @version $Id$
  */
-public class RevokerFactoryBean implements FactoryBean, InitializingBean {
+public class ClientFactoryBean implements FactoryBean, InitializingBean {
 
     //服务接口
     private Class<?> targetInterface;
@@ -65,6 +65,7 @@ public class RevokerFactoryBean implements FactoryBean, InitializingBean {
 
         //获取服务提供者代理对象
         RevokerProxyBeanFactory proxyFactory = RevokerProxyBeanFactory.singleton(targetInterface, timeout, clusterStrategy);
+        //设置代理对象
         this.serviceObject = proxyFactory.getProxy();
 
         //将消费者信息注册到注册中心
@@ -73,6 +74,18 @@ public class RevokerFactoryBean implements FactoryBean, InitializingBean {
         invoker.setRemoteAppKey(remoteAppKey);
         invoker.setGroupName(groupName);
         registerCenter4Consumer.registerInvoker(invoker);
+
+        /**
+         * zk数据：
+         * config_register
+         * ares
+         *   default
+         *      ares.remoting.test.HelloService
+         *         provider
+         *             192.168.xx.xx|8081|2|100|default
+         *         consumer
+         *             192.168.xx.xx
+         */
     }
 
 

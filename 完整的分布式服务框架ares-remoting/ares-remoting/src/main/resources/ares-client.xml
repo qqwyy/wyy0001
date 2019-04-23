@@ -5,11 +5,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.ares-remoting.com/schema/ares-reference http://www.ares-remoting.com/schema/ares-reference.xsd">
 
-
     <!-- 引入远程服务 特别注意id为 该bean的引用 -->
     <AresClient:reference id="remoteHelloService" interface="ares.remoting.test.HelloService"
                           clusterStrategy="WeightRandom" remoteAppKey="ares" groupName="default"
                           timeout="3000"/>
-
-
 </beans>

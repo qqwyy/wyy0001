@@ -24,16 +24,29 @@ public class ProviderFactoryBeanDefinitionParser extends AbstractSingleBeanDefin
 
     @Override
     protected void doParse(Element element, BeanDefinitionBuilder bean) {
-
+        /**
+         *     <!-- 发布远程服务 -->
+         *     <bean id="helloService" class="ares.remoting.test.HelloServiceImpl"/>
+         *
+         *     <AresServer:service id="helloServiceRegister"
+         *                         interface="ares.remoting.test.HelloService"
+         *                         ref="helloService"
+         *                         groupName="default"
+         *                         weight="2"
+         *                         appKey="ares"
+         *                         workerThreads="100"
+         *                         serverPort="8081"
+         *                         timeout="600"/>
+         */
         try {
             String serviceItf = element.getAttribute("interface");
-            String timeOut = element.getAttribute("timeout");
-            String serverPort = element.getAttribute("serverPort");
             String ref = element.getAttribute("ref");
-            String weight = element.getAttribute("weight");
-            String workerThreads = element.getAttribute("workerThreads");
-            String appKey = element.getAttribute("appKey");
             String groupName = element.getAttribute("groupName");
+            String weight = element.getAttribute("weight");
+            String appKey = element.getAttribute("appKey");
+            String workerThreads = element.getAttribute("workerThreads");
+            String serverPort = element.getAttribute("serverPort");
+            String timeOut = element.getAttribute("timeout");
 
             bean.addPropertyValue("serverPort", Integer.parseInt(serverPort));
             bean.addPropertyValue("timeout", Integer.parseInt(timeOut));

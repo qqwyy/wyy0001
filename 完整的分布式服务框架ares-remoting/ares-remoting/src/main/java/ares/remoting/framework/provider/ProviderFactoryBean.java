@@ -58,7 +58,6 @@ public class ProviderFactoryBean implements FactoryBean, InitializingBean {
     public void afterPropertiesSet() throws Exception {
         //启动Netty服务端
         NettyServer.singleton().start(Integer.parseInt(serverPort));
-
         //注册到zk,元数据注册中心
         List<ProviderService> providerServiceList = buildProviderServiceInfos();
         IRegisterCenter4Provider registerCenter4Provider = RegisterCenter.singleton();

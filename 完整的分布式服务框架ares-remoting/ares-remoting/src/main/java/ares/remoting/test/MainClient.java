@@ -28,6 +28,9 @@ public class MainClient {
             }
         }
 
+
+        Thread.sleep(60000);
+
         //关闭jvm
         System.exit(0);
     }
