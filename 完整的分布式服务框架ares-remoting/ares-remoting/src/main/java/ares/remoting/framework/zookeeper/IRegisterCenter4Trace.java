@@ -12,7 +12,7 @@ import java.util.List;
  * @author liyebing created on 17/4/26.
  * @version $Id$
  */
-public interface IRegisterCenter4Governance {
+public interface IRegisterCenter4Trace {
 
     /**
      * 获取服务提供者列表与服务消费者列表

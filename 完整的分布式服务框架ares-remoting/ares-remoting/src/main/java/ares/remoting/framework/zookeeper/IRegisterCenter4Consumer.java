@@ -12,7 +12,7 @@ import java.util.Map;
  * @author liyebing created on 17/4/22.
  * @version $Id$
  */
-public interface IRegisterCenter4Invoker {
+public interface IRegisterCenter4Consumer {
 
     /**
      * 消费端初始化服务提供者信息本地缓存

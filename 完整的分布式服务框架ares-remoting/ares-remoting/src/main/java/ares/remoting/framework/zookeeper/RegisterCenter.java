@@ -27,7 +27,7 @@ import java.util.Map;
  * @author liyebing created on 17/2/12.
  * @version $Id$
  */
-public class RegisterCenter implements IRegisterCenter4Invoker, IRegisterCenter4Provider, IRegisterCenter4Governance {
+public class RegisterCenter implements IRegisterCenter4Consumer, IRegisterCenter4Provider, IRegisterCenter4Trace {
 
     private static RegisterCenter registerCenter = new RegisterCenter();
 
@@ -188,7 +188,7 @@ public class RegisterCenter implements IRegisterCenter4Invoker, IRegisterCenter4
     }
 
 
-    //利用ZK自动刷新当前存活的服务提供者列表数据
+    //利用ZK自动刷新当前存活的服务提供者列表数据(新增和删除  两个场景)
     private void refreshActivityService(List<String> serviceIpList) {
         if (serviceIpList == null) {
             serviceIpList = Lists.newArrayList();
@@ -211,7 +211,7 @@ public class RegisterCenter implements IRegisterCenter4Invoker, IRegisterCenter4
             }
             currentServiceMetaDataMap.put(key, serviceMetaDataModelList);
         }
-        providerServiceMap.clear();
+        providerServiceMap.clear();//todo  需要优化
         System.out.println("currentServiceMetaDataMap,"+ JSON.toJSONString(currentServiceMetaDataMap));
         providerServiceMap.putAll(currentServiceMetaDataMap);
     }

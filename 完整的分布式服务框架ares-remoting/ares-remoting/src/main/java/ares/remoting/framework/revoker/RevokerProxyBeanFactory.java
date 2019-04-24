@@ -5,7 +5,7 @@ import ares.remoting.framework.cluster.engine.ClusterEngine;
 import ares.remoting.framework.model.AresRequest;
 import ares.remoting.framework.model.AresResponse;
 import ares.remoting.framework.model.ProviderService;
-import ares.remoting.framework.zookeeper.IRegisterCenter4Invoker;
+import ares.remoting.framework.zookeeper.IRegisterCenter4Consumer;
 import ares.remoting.framework.zookeeper.RegisterCenter;
 
 import java.lang.reflect.InvocationHandler;
@@ -50,7 +50,7 @@ public class RevokerProxyBeanFactory implements InvocationHandler {
         //服务接口名称
         String serviceKey = targetInterface.getName();
         //获取某个接口的服务提供者列表
-        IRegisterCenter4Invoker registerCenter4Consumer = RegisterCenter.singleton();
+        IRegisterCenter4Consumer registerCenter4Consumer = RegisterCenter.singleton();
         List<ProviderService> providerServices = registerCenter4Consumer.getServiceMetaDataMap4Consume().get(serviceKey);
         //根据软负载策略,从服务提供者列表选取本次调用的服务提供者
         ClusterStrategy clusterStrategyService = ClusterEngine.queryClusterStrategy(clusterStrategy);

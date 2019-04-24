@@ -2,7 +2,7 @@ package ares.remoting.framework.revoker;
 
 import ares.remoting.framework.model.InvokerService;
 import ares.remoting.framework.model.ProviderService;
-import ares.remoting.framework.zookeeper.IRegisterCenter4Invoker;
+import ares.remoting.framework.zookeeper.IRegisterCenter4Consumer;
 import ares.remoting.framework.zookeeper.RegisterCenter;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.FactoryBean;
@@ -52,7 +52,7 @@ public class ClientFactoryBean implements FactoryBean, InitializingBean {
     public void afterPropertiesSet() throws Exception {
 
         //获取服务注册中心
-        IRegisterCenter4Invoker registerCenter4Consumer = RegisterCenter.singleton();
+        IRegisterCenter4Consumer registerCenter4Consumer = RegisterCenter.singleton();
         //初始化服务提供者列表到本地缓存
         registerCenter4Consumer.initProviderMap(remoteAppKey, groupName);
 
