@@ -1,6 +1,6 @@
 package ares.remoting.framework.spring;
 
-import ares.remoting.framework.revoker.ClientFactoryBean;
+import ares.remoting.framework.revoker.RevokerFactoryBean;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,7 @@ public class ClientFactoryBeanDefinitionParser extends AbstractSingleBeanDefinit
 
     @Override
     protected Class getBeanClass(Element element) {
-        return ClientFactoryBean.class;
+        return RevokerFactoryBean.class;
     }
 
     @Override

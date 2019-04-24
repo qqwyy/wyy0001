@@ -17,7 +17,7 @@ import java.util.Map;
  * @author liyebing created on 16/10/3.
  * @version $Id$
  */
-public class ClientFactoryBean implements FactoryBean, InitializingBean {
+public class RevokerFactoryBean implements FactoryBean, InitializingBean {
 
     //服务接口
     private Class<?> targetInterface;
