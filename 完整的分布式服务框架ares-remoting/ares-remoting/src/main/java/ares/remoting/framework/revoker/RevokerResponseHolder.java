@@ -61,7 +61,7 @@ public class RevokerResponseHolder {
     public static void putResultValue(AresResponse response) {
         long currentTime = System.currentTimeMillis();
         AresResponseWrapper responseWrapper = responseMap.get(response.getUniqueKey());
-        responseWrapper.setResponseTime(currentTime);
+        responseWrapper.setResponseTime(currentTime);//客户端接收到netty返回时值的 系统时间
         responseWrapper.getResponseQueue().add(response);
         responseMap.put(response.getUniqueKey(), responseWrapper);
     }

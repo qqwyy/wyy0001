@@ -64,7 +64,9 @@ public class RevokerServiceCallable implements Callable<AresResponse> {
 
             //从返回结果容器中获取返回结果,同时设置等待超时时间为invokeTimeout
             long invokeTimeout = request.getInvokeTimeout();
+
             return RevokerResponseHolder.getValue(request.getUniqueKey(), invokeTimeout);
+            
         } catch (Exception e) {
             logger.error("service invoke error.", e);
         } finally {

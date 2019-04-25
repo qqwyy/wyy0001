@@ -4,6 +4,15 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 public class ArrayBlockingQueueDemo {
+
+    /**
+     * https://www.cnblogs.com/chengdabelief/p/6883238.html
+     *
+     * todo  待补充些单元测试
+     */
+
+
+
     public static void main(String[] args) {
         ArrayBlockingQueue<Cookie> arrayBlockingQueue= new ArrayBlockingQueue<Cookie>(10);//生产者和消费者共用这一个队列，队列容量为10
         Produce produce = new Produce(arrayBlockingQueue);

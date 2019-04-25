@@ -28,7 +28,7 @@ public class AresResponseWrapper {
         }
 
         long timeout = response.getInvokeTimeout();
-        if ((System.currentTimeMillis() - responseTime) > timeout) {//TODO  responseTime实际存放的值是什么？
+        if ((System.currentTimeMillis() - responseTime) > timeout) {
             return true;
         }
         return false;

@@ -90,9 +90,9 @@ public class RevokerProxyBeanFactory implements InvocationHandler {
             int serverPort = request.getProviderService().getServerPort();
             InetSocketAddress inetSocketAddress = new InetSocketAddress(serverIp, serverPort);
             //提交本次调用信息到线程池fixedThreadPool,发起调用
-            Future<AresResponse> responseFuture = fixedThreadPool.submit(RevokerServiceCallable.of(inetSocketAddress, request));
+            Future<AresResponse> responseFuture = fixedThreadPool.submit(RevokerServiceCallable.of(inetSocketAddress, request));//其实也不一定要用RevokerServiceCallable 期内的函数逻辑封装为调用工具类
             //获取调用的返回结果
-            AresResponse response = responseFuture.get(request.getInvokeTimeout(), TimeUnit.MILLISECONDS);
+            AresResponse response = responseFuture.get(request.getInvokeTimeout(), TimeUnit.MILLISECONDS);//阻塞，等待返回，知道超时为止
             if (response != null) {
                 return response.getResult();
             }
