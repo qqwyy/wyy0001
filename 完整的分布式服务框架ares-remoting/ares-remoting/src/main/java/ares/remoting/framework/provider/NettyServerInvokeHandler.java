@@ -110,7 +110,7 @@ public class NettyServerInvokeHandler extends SimpleChannelInboundHandler<AresRe
             response.setInvokeTimeout(consumeTimeOut);
             response.setUniqueKey(request.getUniqueKey());
             response.setResult(result);
-
+            logger.info("返回："+result);
             //将服务调用返回对象回写到消费端
             ctx.writeAndFlush(response);
 

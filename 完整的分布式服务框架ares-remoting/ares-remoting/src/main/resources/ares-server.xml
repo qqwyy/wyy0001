@@ -18,5 +18,18 @@
                         serverPort="8081"
                         timeout="600"/>
 
+    <!-- 发布远程服务 -->
+    <bean id="workService" class="ares.remoting.test.WorkServiceImpl"/>
+
+    <AresServer:service id="workServiceRegister"
+                        interface="ares.remoting.test.WorkService"
+                        ref="workService"
+                        groupName="default"
+                        weight="2"
+                        appKey="ares"
+                        workerThreads="100"
+                        serverPort="8081"
+                        timeout="600"/>
+
 
 </beans>

@@ -9,7 +9,6 @@ public class WorkHandler implements InvocationHandler{
     private Object obj;
 
     public WorkHandler() {
-        // TODO Auto-generated constructor stub
     }
     //构造函数，给我们的真实对象赋值
     public WorkHandler(Object obj) {

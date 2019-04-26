@@ -9,4 +9,8 @@
     <AresClient:reference id="remoteHelloService" interface="ares.remoting.test.HelloService"
                           clusterStrategy="WeightRandom" remoteAppKey="ares" groupName="default"
                           timeout="3000"/>
+
+    <AresClient:reference id="remoteWorkService" interface="ares.remoting.test.WorkService"
+                          clusterStrategy="WeightRandom" remoteAppKey="ares" groupName="default"
+                          timeout="3000"/>
 </beans>

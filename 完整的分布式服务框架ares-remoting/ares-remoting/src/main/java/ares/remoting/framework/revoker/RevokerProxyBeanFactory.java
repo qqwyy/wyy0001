@@ -2,11 +2,15 @@ package ares.remoting.framework.revoker;
 
 import ares.remoting.framework.cluster.ClusterStrategy;
 import ares.remoting.framework.cluster.engine.ClusterEngine;
+import ares.remoting.framework.helper.PropertyConfigeHelper;
 import ares.remoting.framework.model.AresRequest;
 import ares.remoting.framework.model.AresResponse;
 import ares.remoting.framework.model.ProviderService;
 import ares.remoting.framework.zookeeper.IRegisterCenter4Consumer;
 import ares.remoting.framework.zookeeper.RegisterCenter;
+import org.mortbay.util.ajax.JSON;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -27,12 +31,13 @@ import java.util.concurrent.TimeUnit;
  */
 public class RevokerProxyBeanFactory implements InvocationHandler {
 
+    private static final Logger logger = LoggerFactory.getLogger(RevokerProxyBeanFactory.class);
     private ExecutorService fixedThreadPool = null;
 
     //todo  不建议使用成员变量
 
     //服务接口
-    private Class<?> targetInterface;
+    private Class<?> targetInterface;//todo  这里有问题  当多个服务的时候，这里只初始化一次  为单例
     //超时时间
     private int consumeTimeout;
     //调用者线程数
@@ -42,6 +47,7 @@ public class RevokerProxyBeanFactory implements InvocationHandler {
 
 
     public RevokerProxyBeanFactory(Class<?> targetInterface, int consumeTimeout, String clusterStrategy) {
+        logger.info("RevokerProxyBeanFactory: "+ (this.targetInterface==null?null:this.targetInterface.getName()) +"  " + targetInterface.getName());
         this.targetInterface = targetInterface;
         this.consumeTimeout = consumeTimeout;
         this.clusterStrategy = clusterStrategy;
@@ -51,6 +57,7 @@ public class RevokerProxyBeanFactory implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         //服务接口名称
         String serviceKey = targetInterface.getName();
+        logger.info("invoke "+serviceKey +"  "+method.getName() );
         //获取某个接口的服务提供者列表
         IRegisterCenter4Consumer registerCenter4Consumer = RegisterCenter.singleton();
         List<ProviderService> providerServices = registerCenter4Consumer.getServiceMetaDataMap4Consume().get(serviceKey);
@@ -78,7 +85,7 @@ public class RevokerProxyBeanFactory implements InvocationHandler {
 
         try {
             //构建用来发起调用的线程池
-            if (fixedThreadPool == null) {
+            if (fixedThreadPool == null) { //todo  提取为公共客户端调用线程
                 synchronized (RevokerProxyBeanFactory.class) {
                     if (null == fixedThreadPool) {
                         fixedThreadPool = Executors.newFixedThreadPool(threadWorkerNumber);
@@ -104,22 +111,23 @@ public class RevokerProxyBeanFactory implements InvocationHandler {
 
     //todo 该函数需要外迁
 
-    public Object getProxy() {
-        return Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class<?>[]{targetInterface}, this);
-    }
+//    public Object getProxy() {
+//        return Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class<?>[]{targetInterface}, this);
+//    }
 
-    private static volatile RevokerProxyBeanFactory singleton;
 
-    public static RevokerProxyBeanFactory singleton(Class<?> targetInterface, int consumeTimeout, String clusterStrategy) throws Exception {
-        if (null == singleton) {
-            synchronized (RevokerProxyBeanFactory.class) {
-                if (null == singleton) {
-                    singleton = new RevokerProxyBeanFactory(targetInterface, consumeTimeout, clusterStrategy);
-                }
-            }
-        }
-        return singleton;
-    }
+//    private static volatile RevokerProxyBeanFactory singleton;
+//
+//    public static RevokerProxyBeanFactory singleton(Class<?> targetInterface, int consumeTimeout, String clusterStrategy) throws Exception {
+//        if (null == singleton) {
+//            synchronized (RevokerProxyBeanFactory.class) {
+//                if (null == singleton) {
+//                    singleton = new RevokerProxyBeanFactory(targetInterface, consumeTimeout, clusterStrategy);
+//                }
+//            }
+//        }
+//        return singleton;
+//    }
 
 
 }

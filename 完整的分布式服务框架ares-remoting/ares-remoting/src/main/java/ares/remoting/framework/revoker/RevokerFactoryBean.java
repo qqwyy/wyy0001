@@ -8,6 +8,7 @@ import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
+import java.lang.reflect.Proxy;
 import java.util.List;
 import java.util.Map;
 
@@ -64,9 +65,12 @@ public class RevokerFactoryBean implements FactoryBean, InitializingBean {
         NettyChannelPoolFactory.channelPoolFactoryInstance().initChannelPoolFactory(providerMap);
 
         //获取服务提供者代理对象
-        RevokerProxyBeanFactory proxyFactory = RevokerProxyBeanFactory.singleton(targetInterface, timeout, clusterStrategy);
+//        RevokerProxyBeanFactory proxyFactory = RevokerProxyBeanFactory.singleton(targetInterface, timeout, clusterStrategy);
+        RevokerProxyBeanFactory proxyFactory = new RevokerProxyBeanFactory(targetInterface, timeout, clusterStrategy);   //没一个服务 实例化一个具体的InvocationHandler
+
         //设置代理对象
-        this.serviceObject = proxyFactory.getProxy();
+//        this.serviceObject = proxyFactory.getProxy();
+        this.serviceObject =  Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class<?>[]{targetInterface}, proxyFactory);
 
         //将消费者信息注册到注册中心
         InvokerService invoker = new InvokerService();
