@@ -45,7 +45,7 @@ public class EchoClient {
             // 发起异步连接操作
             ChannelFuture f = b.connect(host, port).sync();
 
-           // for (int i = 0; i < 1000; i++) {
+            for (int i = 0; i < 10; i++) {
                 //构造客户端发送的数据ByteBuf对象
                 byte[] req = "你好,Netty!".getBytes();
                 ByteBuf messageBuffer = Unpooled.buffer(req.length);
@@ -54,7 +54,7 @@ public class EchoClient {
                 //向服务端发送数据
                 ChannelFuture channelFuture = f.channel().writeAndFlush(messageBuffer);
                 channelFuture.syncUninterruptibly();
-            //}
+            }
             // 等待客户端链路关闭
             f.channel().closeFuture().sync();
         } catch (Exception e) {
